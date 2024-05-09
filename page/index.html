@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resizable Components</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        .card {
+            overflow: hidden; /* To prevent resizing outside of the card */
+            margin-bottom: 20px; /* Add margin between the cards */
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card" id="resizable-card1">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Component 1</h1>
+                        <p class="card-text">This is the content of Component 1.</p>
+                        <img src="/images/image-1.jpg" class="img-fluid rounded" alt="Placeholder Image">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card" id="resizable-card2">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Component 2</h1>
+                        <p class="card-text">This is the content of Component 2.</p>
+                        <img src="/images/image-2.jpg" class="img-fluid rounded" alt="Placeholder Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card text-center" id="resizable-card3">
+                    <div class="card-body">
+                        <h1 class="card-title">Component 3</h1>
+                        <p class="card-text">This is the content of Component 3.</p>
+                        <img src="/images/image-3.jpg" class="img-fluid rounded" alt="Placeholder Image">
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+    <!-- Bootstrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#resizable-card1, #resizable-card2, #resizable-card3").resizable({
+                handles: "n, e, s, w, ne, se, sw, nw",
+                resize: function(event, ui) {
+                    const target = ui.element;
+                    const targetWidth = target.outerWidth();
+                    const targetHeight = target.outerHeight();
+                    const neighbors = $(".card").not(target);
+                    
+                    neighbors.each(function() {
+                        const neighbor = $(this);
+                        const neighborWidth = neighbor.outerWidth();
+                        const neighborHeight = neighbor.outerHeight();
+                        
+                        const diffX = neighbor.offset().left + neighborWidth / 2 - (target.offset().left + targetWidth / 2);
+                        const diffY = neighbor.offset().top + neighborHeight / 2 - (target.offset().top + targetHeight / 2);
+                        
+                        const deltaX = Math.abs(diffX) - (targetWidth + neighborWidth) / 2;
+                        const deltaY = Math.abs(diffY) - (targetHeight + neighborHeight) / 2;
+
+                        if (Math.abs(diffX) < (targetWidth + neighborWidth) / 2 && Math.abs(diffY) < (targetHeight + neighborHeight) / 2) {
+                            if (deltaX > deltaY) {
+                                neighbor.outerWidth(neighborWidth + deltaX);
+                            } else {
+                                neighbor.outerHeight(neighborHeight + deltaY);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
