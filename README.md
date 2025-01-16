@@ -6,7 +6,7 @@
 🔗 [LinkedIn](https://www.linkedin.com/in/surendra-y-04290316a) | [GitHub](https://github.com/SUre-8299)
 
 ## **Career Objective**  
-"With one year in web development, I pursue challenging opportunities for growth. Committed to both professional and personal development, I prioritize hard work to achieve results and contribute effectively to teams."
+"With 1 year in web development and 5 years in coordination and relationship management, I excel in team collaboration, task completion, and liaising with government departments for efficient outcomes."
 
 
 ## **Certifications**  
